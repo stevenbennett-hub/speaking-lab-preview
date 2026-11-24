@@ -28,6 +28,13 @@ jobs:
           persist-credentials: false
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test development build
+        run: node --test tests/*.test.mjs
+      - name: Mark preview build
+        run: echo '{ "channel": "preview" }' > site/data/preview.json
       - name: Upload preview
         uses: actions/upload-pages-artifact@v3
         with:
